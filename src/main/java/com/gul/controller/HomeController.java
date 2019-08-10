@@ -23,7 +23,8 @@ public class HomeController {
 	@GetMapping("/")
 	public ModelAndView view() {
 		ModelAndView mav = new ModelAndView("index");
- 		mav.addObject("student", new Student());
+		Student student = new Student();
+		mav.addObject("student",student);
 		return mav;
 	}
 	
@@ -31,7 +32,8 @@ public class HomeController {
 	public ModelAndView save(@ModelAttribute("student") Student student) {
 		ModelAndView mav = new ModelAndView("index");
 		repo.save(student);
- 		mav.addObject("student", new Student());
+		Student student2 = new Student();
+		mav.addObject("student",student2);
 		return mav;
 	}
 	
