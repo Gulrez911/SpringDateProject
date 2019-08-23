@@ -5,8 +5,14 @@
 <html>
 <head>
 <title>Student Home</title>
+<link rel="shortcut icon" type="image/png" href="./resources/image/Fruit-Cherry-icon.png">
 <link href="./resources/css/bootstrap.css" rel="stylesheet" />
+<script src="./resources/js/jquery.min.js" type="text/javascript"></script>
+<script>
+$(document).ready(function(){
 
+});
+</script>
 </head>
 <body>
 	<div class="container">
@@ -24,7 +30,7 @@
 			</div>
 			<div class="form-group">
 				<label for="email">Email</label>
-				<form:input path="email" class="form-control" id="email" />
+				<form:input path="email" class="form-control" id="email"/>
 			</div>
 			<div class="form-group">
 				<label for="pwd">Password</label>
