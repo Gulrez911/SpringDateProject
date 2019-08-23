@@ -13,35 +13,33 @@
 	<div class="container">
 
 		<div>
-<%-- 			<c:forEach begin="1" end="${pageno}" var="no"> --%>
-<%-- 				<a href="list?page=${no}">${no}</a> --%>
-<%-- 			</c:forEach> --%>
+			<%-- 			<c:forEach begin="1" end="${pageno}" var="no"> --%>
+			<%-- 				<a href="list?page=${no}">${no}</a> --%>
+			<%-- 			</c:forEach> --%>
 		</div>
 
 		<h2>Student List</h2>
-<%-- 		${next} --%>
-
-		<nav aria-label="Page navigation example">
-			<ul class="pagination">
-				<c:choose>
-					<c:when test="${next!=0}">
+		<%-- 		${next} --%>
+			<nav aria-label="Page navigation example">
+				<ul class="pagination justify-content-center">
+					<c:choose>
+						<c:when test="${next!=0}">
+							<li class="page-item"><a class="page-link"
+								href="list?page=${next}">Previous</a></li>
+						</c:when>
+					</c:choose>
+					<c:forEach begin="1" end="${pageno}" var="no">
 						<li class="page-item"><a class="page-link"
-							href="list?page=${next}">Previous</a></li>
-					</c:when>
-				</c:choose>
-				<c:forEach begin="1" end="${pageno}" var="no">
-					<li class="page-item"><a class="page-link"
-						href="list?page=${no}">${no}</a></li>
-				</c:forEach>
-				<c:choose>
-					<c:when test="${next+1!=pageno}">
-						<li class="page-item"><a class="page-link"
-							href="list?page=${next+2}">Next</a></li>
-					</c:when>
-				</c:choose>
-			</ul>
-		</nav>
-
+							href="list?page=${no}">${no}</a></li>
+					</c:forEach>
+					<c:choose>
+						<c:when test="${next+1!=pageno}">
+							<li class="page-item"><a class="page-link"
+								href="list?page=${next+2}">Next</a></li>
+						</c:when>
+					</c:choose>
+				</ul>
+			</nav>
 		<%-- 		 ${pageno} --%>
 
 		<a href="/SpringDateProject">Add New Student</a>
