@@ -48,6 +48,13 @@ public class HomeController {
 		mav.addObject("student", student);
 		return mav;
 	}
+	
+	@GetMapping("login")
+	public ModelAndView login() {
+		ModelAndView mav = new ModelAndView("login");
+		mav.addObject("student",new Student());
+		return mav;
+	}
 
 	@PostMapping("save")
 	public ModelAndView save(@ModelAttribute("student") Student student,@RequestParam("file") MultipartFile file) throws IOException {
