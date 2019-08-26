@@ -55,6 +55,22 @@ public class HomeController {
 		mav.addObject("student",new Student());
 		return mav;
 	}
+	
+	@PostMapping("authenticate")
+	public ModelAndView authenticate(@ModelAttribute("student") Student student) {
+		ModelAndView mav = new ModelAndView("profile");
+		System.out.println("11"+student.getEmail());
+		System.out.println("11"+student.getPassword());
+		Student  student2 = repo.findUser(student.getEmail(),student.getPassword());
+		  if(student2!=null) {
+			  mav.addObject("msg",student2.getEmail());
+			  System.out.println("email is: "+student2.getPassword());
+		  }else {
+			  mav.setViewName("login");
+		  }
+		return mav;
+	}
+	
 
 	@PostMapping("save")
 	public ModelAndView save(@ModelAttribute("student") Student student,@RequestParam("file") MultipartFile file) throws IOException {

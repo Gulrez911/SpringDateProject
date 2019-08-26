@@ -15,4 +15,7 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
 
 	@Query(value = "select * from Student s where s.id=:id", nativeQuery = true)
 	Student getDocument(@Param("id") int id);
+	
+	@Query(value = "select * from Student s where s.email=:mail and s.password=:password", nativeQuery = true)
+	Student findUser(@Param("mail") String email,@Param("password") String  password);
 }
