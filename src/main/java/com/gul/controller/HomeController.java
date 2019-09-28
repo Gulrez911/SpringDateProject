@@ -13,6 +13,7 @@ import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -36,8 +37,10 @@ public class HomeController {
 	@Autowired
 	StudentRepository repo;
 
+	private static Logger logger = Logger.getLogger(HomeController.class);
 	@GetMapping("/")
 	public ModelAndView view() {
+		logger.info("view method called............");
 		ModelAndView mav = new ModelAndView("index");
 		Student student = new Student();
 		List<String> hobbies = new ArrayList<>();
@@ -48,32 +51,32 @@ public class HomeController {
 		mav.addObject("student", student);
 		return mav;
 	}
-	
+
 	@GetMapping("login")
 	public ModelAndView login() {
 		ModelAndView mav = new ModelAndView("login");
-		mav.addObject("student",new Student());
+		mav.addObject("student", new Student());
 		return mav;
 	}
-	
+
 	@PostMapping("authenticate")
 	public ModelAndView authenticate(@ModelAttribute("student") Student student) {
 		ModelAndView mav = new ModelAndView("profile");
-		System.out.println("11"+student.getEmail());
-		System.out.println("11"+student.getPassword());
-		Student  student2 = repo.findUser(student.getEmail(),student.getPassword());
-		  if(student2!=null) {
-			  mav.addObject("msg",student2.getEmail());
-			  System.out.println("email is: "+student2.getPassword());
-		  }else {
-			  mav.setViewName("login");
-		  }
+		System.out.println("11" + student.getEmail());
+		System.out.println("11" + student.getPassword());
+		Student student2 = repo.findUser(student.getEmail(), student.getPassword());
+		if (student2 != null) {
+			mav.addObject("msg", student2.getEmail());
+			System.out.println("email is: " + student2.getPassword());
+		} else {
+			mav.setViewName("login");
+		}
 		return mav;
 	}
-	
 
 	@PostMapping("save")
-	public ModelAndView save(@ModelAttribute("student") Student student,@RequestParam("file") MultipartFile file) throws IOException {
+	public ModelAndView save(@ModelAttribute("student") Student student, @RequestParam("file") MultipartFile file)
+			throws IOException {
 		ModelAndView mav = new ModelAndView("index");
 		Student student2 = new Student();
 		System.out.println("..............");
@@ -136,24 +139,23 @@ public class HomeController {
 //		mav.addObject("list", list);
 		return mav;
 	}
-	
+
 //	fetch Documents from database
-	
+
 	@GetMapping("/download/{documentId}")
-	public String download(@PathVariable("documentId")
-			Integer documentId, HttpServletResponse response) {
-		
+	public String download(@PathVariable("documentId") Integer documentId, HttpServletResponse response) {
+
 		Student doc = repo.getDocument(documentId);
 		try {
-			InputStream inputStream = new  ByteArrayInputStream(doc.getDocument());
+			InputStream inputStream = new ByteArrayInputStream(doc.getDocument());
 			OutputStream out = response.getOutputStream();
 			IOUtils.copy(inputStream, out);
 			out.flush();
 			out.close();
-		
+
 		} catch (IOException e) {
 			e.printStackTrace();
-		}  
+		}
 		return null;
 	}
 }
